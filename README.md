@@ -242,21 +242,10 @@ Combinaison de :
 - Genres variés : Action, Drame, Comédie, Science-fiction, etc.
 - Métadonnées complètes : Titre, résumé, genre, date de sortie, notation
 
-## Auteurs
-
-### Équipe du projet
+## Équipe du projet
 - EL OUASAIDI Fatima - Développeuse principale
 - KOUBIA Hiba - Co-développeuse
 
-### Encadrement
-- Pr. FARISS Mourad - Encadrant académique
-- Pr. Aziz SRAI - Président du jury
-- Pr. Abderrahim ZANNOU - Examinateur
-
-### Contact
-- Email : fatimaelouasaidi22@gmail.com
-- Université : Faculté des Sciences et Techniques d'Al-Hoceima
-- Année universitaire : 2023-2024
 
 ## Références
 
