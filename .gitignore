@@ -1,0 +1,29 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# Environnements virtuels
+venv/
+env/
+
+# Fichiers sensibles
+*.env
+secrets.py
+config.py
+
+# Fichiers volumineux (à décommenter si >50MB)
+# *.pkl
+# datasets/
+
+# Système
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
