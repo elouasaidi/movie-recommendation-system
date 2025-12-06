@@ -1,15 +1,15 @@
-# 🎬 F&H Movie Recommender System
+#  F&H Movie Recommender System
 
 Système intelligent de recommandation de films basé sur l'apprentissage automatique et une interface web interactive.
 
-## ✨ Fonctionnalités
+##  Fonctionnalités
 
-- 🔍 **Recherche de films** par titre, genre, acteurs
-- 🎯 **Recommandations personnalisées** basées sur la similarité cosinus
-- 📊 **Interface intuitive** avec affichage des posters et détails
-- ⚡ **Temps réel** - résultats instantanés
+-  **Recherche de films** par titre, genre, acteurs
+-  **Recommandations personnalisées** basées sur la similarité cosinus
+-  **Interface intuitive** avec affichage des posters et détails
+-  **Temps réel** - résultats instantanés
 
-## 🏗️ Architecture du Projet
+##  Architecture du Projet
 F&H Recommender/
 ├── app.py # Application Flask principale
 ├── Main.ipynb # Notebook d'analyse et développement ML
@@ -33,11 +33,11 @@ git clone https://github.com/elouasaidi/movie-recommendation-system.git
 cd movie-recommendation-system
 
 ---
-*Installer les dépendances*
+**Installer les dépendances**
 pip install flask pandas scikit-learn numpy
 
-*Lancer l'application*
+**Lancer l'application**
 python app.py
 
-*Ouvrir dans le navigateur*
+**Ouvrir dans le navigateur**
 http://localhost:5000
