@@ -1,6 +1,8 @@
 # F&H Movie Recommender System
 
 Système de Recommandation de Films - Projet de Fin d'Études  
+![Uploading image.png…]()
+
 
 ## Aperçu du projet
 
