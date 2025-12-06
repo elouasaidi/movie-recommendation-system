@@ -1,19 +1,6 @@
 # F&H Movie Recommender System
 
 Système de Recommandation de Films - Projet de Fin d'Études  
-Université Abdelmalek Essaadi - Faculté des Sciences et Techniques d'Al-Hoceima  
-Spécialité : Ingénierie de données et développement logiciel  
-Année universitaire : 2023-2024
-
-## Table des Matières
-- Aperçu du projet
-- Fonctionnalités
-- Architecture technique
-- Installation
-- Structure de la base de données
-- Algorithmes implémentés
-- Auteurs
-- Références
 
 ## Aperçu du projet
 
