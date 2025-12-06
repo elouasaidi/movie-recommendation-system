@@ -1,38 +1,43 @@
-# F&H Recommender
+# 🎬 F&H Movie Recommender System
 
-## Description
-F&H Recommender est un système de **recommandation de films** développé en Python.  
-Le projet utilise des techniques de filtrage collaboratif et des fichiers pré-calculés pour suggérer des films à partir des préférences des utilisateurs.
+Système intelligent de recommandation de films basé sur l'apprentissage automatique et une interface web interactive.
 
----
+## ✨ Fonctionnalités
 
-## Fonctionnalités
-- Recommandation basée sur la similarité entre films.
-- Gestion des fichiers volumineux avec **Git LFS** (`similarity.pkl`).
-- Interface via Jupyter Notebook.
-- Analyse et prétraitement des données des utilisateurs et films.
+- 🔍 **Recherche de films** par titre, genre, acteurs
+- 🎯 **Recommandations personnalisées** basées sur la similarité cosinus
+- 📊 **Interface intuitive** avec affichage des posters et détails
+- ⚡ **Temps réel** - résultats instantanés
 
----
-
-## Structure du projet
+## 🏗️ Architecture du Projet
 F&H Recommender/
-├── Main.ipynb # Notebook principal
-├── similarity.pkl # Matrice de similarité (via Git LFS)
-├── movies_list.pkl # Liste des films
-├── .gitignore # Fichiers à ignorer par Git
-└── README.md # Ce fichier
+├── app.py # Application Flask principale
+├── Main.ipynb # Notebook d'analyse et développement ML
+├── templates/ # Templates HTML
+│ ├── index.html # Page d'accueil
+│ ├── recommend.html # Page de recommandations
+│ └── ...
+├── static/ # Assets statiques
+│ ├── css/ # Feuilles de style
+│ ├── js/ # Scripts JavaScript
+│ └── images/ # Images et posters
+├── datasets/ # Jeux de données
+├── requirements.txt # Dépendances Python
+└── README.md # Documentation
 
----
+## 🚀 Installation Rapide
 
-## Prérequis
-- Python 3.x
-- Jupyter Notebook
-- Git + Git LFS pour les fichiers volumineux
-
----
-
-## Installation
-
-1. Cloner le repository :
+1. **Cloner le dépôt**
 ```bash
 git clone https://github.com/elouasaidi/movie-recommendation-system.git
+cd movie-recommendation-system
+
+---
+*Installer les dépendances*
+pip install flask pandas scikit-learn numpy
+
+*Lancer l'application*
+python app.py
+
+*Ouvrir dans le navigateur*
+http://localhost:5000
