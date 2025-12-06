@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-free-6.5.2-web/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Mon Compte</title>
+</head>
+<body>
+    <style>
+        
+        /* Réinitialisation des marges et des rembourrages */
+html, body, ul {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style de l'en-tête */
+h1,h2 {
+    font-family: Arial, sans-serif;
+    color: #333; /* Couleur du texte */
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Style de la liste des détails de l'utilisateur */
+#user-details {
+    list-style-type: none; /* Supprimer les puces de liste */
+    margin-top: 30px;
+    padding: 0 20px; /* Ajouter un espacement autour des détails */
+}
+
+#user-details li {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    margin-bottom: 10px; /* Espacement entre les éléments de liste */
+    color: #666; /* Couleur du texte */
+    text-align: center;
+}
+
+/* Style pour les détails de l'utilisateur */
+#user-details li span {
+    font-weight: bold; /* Mettre en gras */
+    color: #333; /* Couleur du texte */
+}
+
+</style>
+    <h1>Informations du compte</h1>
+    <ul id="user-details">
+    
+        <br></br>
+        <li><h2> Nom d'utilisateur:</h2> {{session.name}}</li>
+        <li> <h2> Email:</h2> {{session.email}}</li>
+        
+    </ul>
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='3.png') }}" alt="logo">
+            <h2>F&H Recommender</h2>
+        </div>
+        <br>
+        <br>
+        <ul class="links">
+            <h4>Menu Principal</h4>
+            <li>
+                <span class="material-symbols-outlined">home</span>
+                <a href="{{ url_for('accueil') }}">Accueil</a>
+            </li>
+            <li>
+                <span class="material-symbols-outlined">show_chart</span>
+                <a href="{{ url_for('favoris') }}">Films populaires</a>
+            </li>
+            <li>
+                <span class="material-symbols-outlined">favorite</span>
+                <a href="{{ url_for('popular_movies') }}">Mes favoris</a>
+            </li>
+            <li>
+                <span class="material-symbols-outlined">history</span>
+                <a href="{{ url_for('historique') }}">Historique</a>
+            </li>
+            <li>
+                <span class="material-symbols-outlined">person</span>
+                <a href="{{ url_for('compte') }}">Mon compte</a>
+            </li>
+           
+            <li>
+                <span class="material-symbols-outlined">settings</span>
+                <a href="{{ url_for('parametres') }}">Paramètres</a>
+            </li>
+            <br></br> 
+                <br></br>
+                <br></br>
+       
+                <li class="logout-link">
+                    <span class="material-symbols-outlined">logout</span>
+                    <a href="{{ url_for('login') }}" id="logoutButton">Déconnexion</a>
+                </li>
+                <li>
+                    <strong>{{ session.name }}</strong>
+                </li>
+                
+                <script>
+                    document.getElementById('logoutButton').addEventListener('click', function(event) {
+                        var confirmation = confirm('Voulez-vous vraiment vous déconnecter ?');
+                        if (!confirmation) {
+                            event.preventDefault(); // Empêcher le lien de déconnexion de s'exécuter
+                        }
+                    });
+                </script>
+        </ul>
+    </aside>
+    <script>
+        // Get the user details from the backend or a local storage
+        const userDetails = JSON.parse(localStorage.getItem('userDetails')); // Si les détails de l'utilisateur sont stockés localement
+
+        // Get the user details list
+        const userDetailsList = document.getElementById('user-details');
+
+        // Loop through the user details and add them to the list
+        for (const detail in userDetails) {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${detail}: ${userDetails[detail]}`;
+            userDetailsList.appendChild(listItem);
+        }
+    </script>
+</body>
+</html>

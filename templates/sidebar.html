@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Système de Recommandation de Films</title>
+    <!-- Link to the local Font Awesome CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-free-6.5.2-web/css/all.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+   .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.align-right {
+    text-align: center;
+    color: rgb(15, 15, 15);
+}
+.align-right h1,
+.align-right p {
+    margin-bottom: 20px;
+    font-size: 100px;
+}
+form {
+    margin-top: 20px;
+}
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+#search-input {
+    border: none;
+    outline: none;
+    background: none;
+    flex: 1;
+    padding: 5px;
+    font-size: 16px;
+}
+#search-button {
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+    padding: 5px;
+    color: #555;
+}
+.movie-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+.movie-card {
+    width: 200px; /* Fixez une largeur fixe pour chaque carte */
+    height: 400px; /* Fixez une hauteur fixe pour chaque carte */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 20px;
+    background-color: #f9f9f9; /* Couleur de fond facultative pour une meilleure visibilité */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Assurez-vous que le contenu est espacé de manière uniforme */
+}
+
+.movie-card img {
+    width: 100%;
+    height: 250px; /* Fixez une hauteur fixe pour les images */
+    object-fit: cover; /* Assurez-vous que les images couvrent la zone sans distorsion */
+    border-radius: 5px;
+}
+
+.movie-card h3 {
+    margin: 10px 0;
+    font-size: 18px;
+    text-align: center;
+    overflow: hidden; /* Empêchez le débordement du texte */
+    text-overflow: ellipsis; /* Ajoutez des points de suspension pour indiquer le texte coupé */
+    white-space: nowrap; /* Empêchez le texte de passer à la ligne */
+    height: 60px; /* Hauteur fixe pour le titre */
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    padding: 10px;
+    color: #888; /* Couleur grise pour l'icône de cœur */
+}
+
+.btn.liked {
+    color: #ff0000; /* Red color for liked heart icon */
+}
+
+        
+    </style>
+</head>
+<body>
+    <div class="align-right">
+        <h1>F&H Recommender</h1>
+        <h3>Bienvenue dans notre application de recommandation des Films! </h3>
+        <form id="search-form" method="POST" action="{{ url_for('recommend') }}">
+            <div class="search-container">
+                <input type="text" id="search-input" name="search_query" placeholder="Rechercher un film..." style="width: 600px;">
+                <button type="submit" id="search-button"><i class="fa fa-search"></i> Rechercher</button>
+            </div>
+        </form>
+            
+        <div class="container">
+            <h4>Des films que vous aimerez peut-être !</h4>
+            <br>
+            <div class="movie-list">
+                {% if recommendations %}
+                    {% for i in range(recommendations|length) %}
+                        <div class="movie-card">
+                            <h3>{{ recommendations[i] }}</h3>
+                            <img src="{{ recommended_posters[i] }}" alt="{{ recommendations[i] }} Poster">
+                            <button class="btn {% if recommendations[i] in favorite_movies %}liked already-liked{% endif %}" 
+                                    onclick="toggleLike(this)" 
+                                    data-movie-title="{{ recommendations[i] }}" 
+                                    data-movie-poster="{{ recommended_posters[i] }}">
+                                <i class="fa fa-heart">Like</i> 
+                            </button>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                {% for i in range(popular_movies|length) %}
+                    <div class="movie-card">
+                        <h3 class="movie-title">{{ popular_movies[i] }}</h3>
+                        <img class="movie-poster" src="{{ popular_posters[i] }}" alt="{{ popular_movies[i] }} Poster">
+                        <button class="btn {% if popular_movies[i] in favorite_movies %}liked already-liked{% endif %}" 
+                                onclick="toggleLike(this)" 
+                                data-movie-title="{{ popular_movies[i] }}" 
+                                data-movie-poster="{{ popular_posters[i] }}">
+                            <i class="fa fa-heart">Like</i>
+                        </button>
+                    </div>
+                {% endfor %}
+
+                {% endif %}
+            </div>
+            
+        </div>
+    </div>
+    
+        
+
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='3.png') }}" alt="logo">
+            <h2>F&H Recommender</h2>
+        </div>
+        <br>
+        <br>
+        <ul class="links">
+            <h4>Menu Principal</h4>
+            <li>
+                <span class="material-symbols-outlined">home</span>
+                <a href="{{ url_for('accueil') }}">Accueil</a>
+            </li>
+            <li>
+                <span class="material-symbols-outlined">show_chart</span>
+                <a href="{{ url_for('popular_movies') }}">Films populaires</a>
+            </li>
+            <li>
+                <span class="material-symbols-outlined">favorite</span>
+                <a href="{{ url_for('favoris') }}">Mes favoris</a>
+            </li>
+            <li>
+                <span class="material-symbols-outlined">history</span>
+                <a href="{{ url_for('historique') }}">Historique</a>
+            </li>
+            <li>
+                <span class="material-symbols-outlined">person</span>
+                <a href="{{ url_for('compte') }}">Mon compte</a>
+            </li>
+            <li>
+                <span class="material-symbols-outlined">settings</span>
+                <a href="{{ url_for('parametres') }}">Paramètres</a>
+            </li>
+            <br></br> 
+                <br></br>
+                <br></br>
+     
+                
+                <li class="logout-link">
+                    <span class="material-symbols-outlined">logout</span>
+                    <a href="{{ url_for('login') }}" id="logoutButton">Déconnexion</a>
+                </li>
+                <li>
+                    <strong>{{ session.name }}</strong>
+                </li>
+                
+                <script>
+                    document.getElementById('logoutButton').addEventListener('click', function(event) {
+                        var confirmation = confirm('Voulez-vous vraiment vous déconnecter ?');
+                        if (!confirmation) {
+                            event.preventDefault(); // Empêcher le lien de déconnexion de s'exécuter
+                        }
+                    });
+                </script>
+        </ul>
+    </aside>
+    
+    <script>
+        // Fonction pour ajouter un cookie avec une durée d'une heure
+function setCookie(cname, cvalue) {
+    var d = new Date();
+    d.setTime(d.getTime() + (1 * 60 * 60 * 1000)); // Durée d'une heure
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+// Fonction pour récupérer la valeur d'un cookie
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+// Fonction pour gérer le clic sur le bouton "J'aime"
+function toggleLike(button) {
+    const movieTitle = button.getAttribute('data-movie-title');
+    const moviePoster = button.getAttribute('data-movie-poster');
+
+    // Récupérer le titre du dernier film aimé (s'il y en a un)
+    var lastLikedMovie = getCookie("last_liked_movie");
+
+    // Vérifier si le film actuel est le dernier film aimé
+    if (movieTitle === lastLikedMovie) {
+        // Supprimer le cookie pour réinitialiser le bouton
+        document.cookie = "last_liked_movie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        button.classList.remove('liked');
+    } else {
+        // Supprimer l'ancien cookie pour réinitialiser l'ancien bouton aimé
+        if (lastLikedMovie) {
+            document.cookie = "last_liked_movie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            var lastLikedButton = document.querySelector('[data-movie-title="' + lastLikedMovie + '"]');
+            if (lastLikedButton) {
+                lastLikedButton.classList.remove('liked');
+            }
+        }
+        // Ajouter un nouveau cookie pour le film actuel
+        setCookie("last_liked_movie", movieTitle);
+        button.classList.add('liked');
+    }
+
+    // Autres actions comme l'envoi de données au serveur
+    fetch('/toggle_favorite', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            movie_title: movieTitle,
+            movie_poster: moviePoster
+        }),
+        credentials: 'include' // Important pour inclure les cookies de session
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+
+
+    </script>
+</body>
+</html>

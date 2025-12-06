@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-free-6.5.2-web/css/all.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Paramètres de l'application</title>
+    <style>
+        /* Importing Google font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    color: #000;
+}
+
+.container {
+    width: 80%;
+    max-width: 500px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+input, select {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: block;
+    margin: 10px auto;
+    color: #000;
+}
+
+button, .primary-button, .paypal-button, .gpay-button, .credit-card-button {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fdfbfb;
+    margin: 10px auto;
+    background-color: #888;
+}
+
+.confirm-button {
+    background-color: #28a745;
+    margin: 10px auto;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    margin: 10px auto;
+}
+
+.eng-button {
+    background-color: #007bff;
+    width: 100%;
+    max-width: 300px;
+    margin: 10px auto;
+}
+
+.cancel-note {
+    text-align: center;
+    margin-top: 10px;
+    color: #888;
+}
+
+.payment-options, .modifier-nom, .modifier-email, .modifier-password {
+    display: none;
+    margin-top: 10px;
+    width: 100%;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 110px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(17px);
+    --webkit-backdrop-filter: blur(17px);
+    border-right: 1px solid rgba(255, 255, 255, 0.7);
+    transition: width 0.3s ease;
+}
+
+.sidebar:hover {
+    width: 260px;
+}
+
+.sidebar .logo {
+    color: #000;
+    display: flex;
+    align-items: center;
+    padding: 25px 10px 15px;
+}
+
+.logo img {
+    width: 43px;
+    border-radius: 50%;
+}
+
+.logo h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-left: 15px;
+    display: none;
+}
+
+.sidebar:hover .logo h2 {
+    display: block;
+}
+
+.sidebar .links {
+    list-style: none;
+    margin-top: 20px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    height: calc(100% - 140px);
+}
+
+.sidebar .links::-webkit-scrollbar {
+    display: none;
+}
+
+.links li {
+    display: flex;
+    border-radius: 4px;
+    align-items: center;
+}
+
+.links li:hover {
+    cursor: pointer;
+    background: #fff;
+}
+
+.links h4 {
+    color: #222;
+    font-weight: 500;
+    display: none;
+    margin-bottom: 10px;
+}
+
+.sidebar:hover .links h4 {
+    display: block;
+}
+
+.links hr {
+    margin: 10px 8px;
+    border: 1px solid #4c4c4c;
+}
+
+.sidebar:hover .links hr {
+    border-color: transparent;
+}
+
+.links li span {
+    padding: 12px 10px;
+}
+
+.links li a {
+    padding: 10px;
+    color: #000;
+    display: none;
+    font-weight: 500;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.sidebar:hover .links li a {
+    display: block;
+}
+
+.links .logout-link {
+    margin-top: 20px;
+}
+
+/* Specific Styles for Recommendations */
+.horizontal {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 0;
+    list-style-type: none;
+}
+
+.horizontal li {
+    flex: 0 0 auto;
+    margin-right: 20px;
+}
+
+.movie-poster {
+    width: 200px;
+    height: auto;
+}
+
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <h2>Paramètres de l'application</h2>
+        <form action="/update-settings" method="post" onsubmit="return validateForm()">
+            <!-- Mettre à jour le nom -->
+            <div class="form-group">
+                <button type="button" class="primary-button" onclick="toggleEdit('modifier-nom')">Modifier le nom</button>
+                <div class="modifier-nom" id="modifier-nom">
+                    <input type="text" id="name" name="name" placeholder="Saisir le nouveau nom">
+                    <input type="text" id="con-name" name="con-name" placeholder="Confirmer votre nom">
+                    <button type="button" class="primary-button confirm-button" onclick="confirmEdit('name')">Valider</button>
+                </div>
+            </div>
+    
+            <!-- Mettre à jour l'email -->
+            <div class="form-group">
+                <button type="button" class="primary-button" onclick="toggleEdit('modifier-email')">Modifier l'email</button>
+                <div class="modifier-email" id="modifier-email">
+                    <input type="email" id="email" name="email" placeholder="Saisir le nouveau email" >
+                    <input type="email" id="con-email" name="con-email" placeholder="Confirmer votre email">
+                    <button type="button" class="primary-button confirm-button" onclick="confirmEdit('email')">Valider</button>
+                </div>
+            </div>
+    
+            <!-- Mettre à jour le mot de passe -->
+            <div class="form-group">
+                <button type="button" class="primary-button" onclick="toggleEdit('modifier-password')">Modifier le mot de passe</button>
+                <div class="modifier-password" id="modifier-password">
+                    <input type="password" id="password" name="password" placeholder="Saisir le nouveau mot de passe">
+                    <input type="password" id="con-password" name="con-password" placeholder="Confirmer votre mot de passe">
+                    <button type="button" class="primary-button confirm-button" onclick="confirmEdit('password')">Valider</button>
+                </div>
+            </div>
+    
+        <button type="submit" class="eng-button">Enregistrer les modifications</button>   
+        </form>
+        <!-- Formulaire pour supprimer le compte -->
+    <form action="{{ url_for('delete_account') }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.')">
+        <button type="submit" class="btn btn-danger">Supprimer le compte</button>
+    </form>
+        
+    </div>
+    
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='3.png') }}" alt="logo">
+            <h2>F&H Recommender</h2>
+        </div>
+        <br>
+        <br>
+        <ul class="links">
+            <h4>Menu Principal</h4>
+            <li>
+                <span class="material-symbols-outlined">home</span>
+                <a href="{{ url_for('accueil') }}">Accueil</a>
+            </li>
+            <li>
+                <span class="material-symbols-outlined">show_chart</span>
+                <a href="{{ url_for('popular_movies') }}">Films populaires</a>
+            </li>
+            <li>
+                <span class="material-symbols-outlined">favorite</span>
+                <a href="{{ url_for('favoris') }}">Mes favoris</a>
+            </li>
+            <li>
+                <span class="material-symbols-outlined">history</span>
+                <a href="{{ url_for('historique') }}">Historique</a>
+            </li>
+            <li>
+                <span class="material-symbols-outlined">person</span>
+                <a href="{{ url_for('compte') }}">Mon compte</a>
+            </li>
+          
+            <li>
+                <span class="material-symbols-outlined">settings</span>
+                <a href="{{ url_for('parametres') }}">Paramètres</a>
+            </li>
+            <br></br> 
+                <br></br>
+                <br></br>
+                <li class="logout-link">
+                    <span class="material-symbols-outlined">logout</span>
+                    <a href="{{ url_for('login') }}" id="logoutButton">Déconnexion</a>
+                </li>
+                <li>
+                    <strong>{{ session.name }}</strong>
+                </li>
+                
+                <script>
+                    document.getElementById('logoutButton').addEventListener('click', function(event) {
+                        var confirmation = confirm('Voulez-vous vraiment vous déconnecter ?');
+                        if (!confirmation) {
+                            event.preventDefault(); // Empêcher le lien de déconnexion de s'exécuter
+                        }
+                    });
+                </script>
+        </ul>
+    </aside>
+    <script>
+        function toggleEdit(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.style.display = section.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function confirmEdit(field) {
+            if (validateField(field)) {
+                const inputField = document.querySelector(`input[name="${field}"]`);
+                alert(field + ' mis à jour avec succès : ' + inputField.value);
+                document.getElementById(`modifier-${field}`).style.display = 'none';
+            }
+        }
+
+        function validateForm() {
+            if (document.getElementById('modifier-nom').style.display === 'block' && !validateField('name')) {
+                return false;
+            }
+            if (document.getElementById('modifier-email').style.display === 'block' && !validateField('email')) {
+                return false;
+            }
+            if (document.getElementById('modifier-password').style.display === 'block' && !validateField('password')) {
+                return false;
+            }
+            return true;
+        }
+
+        function validateField(field) {
+            const inputField = document.querySelector(`input[name="${field}"]`);
+            const confirmField = document.querySelector(`input[name="con-${field}"]`);
+            if (inputField.value !== confirmField.value) {
+                alert(`Les champs ${field} ne correspondent pas.`);
+                return false;
+            }
+            if (!inputField.value) {
+                alert(`Le champ ${field} est vide.`);
+                return false;
+            }
+            return true;
+        }
+
+        function togglePaymentOptions() {
+            const paymentOptions = document.getElementById('payment-options');
+            paymentOptions.style.display = paymentOptions.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>

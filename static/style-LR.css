@@ -1,0 +1,114 @@
+/* Import des polices */
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400");
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display");
+
+/* Style global */
+body {
+  font-family: "Source Sans Pro", sans-serif; /* Utilisation de la police Source Sans Pro */
+  
+  background-image: url('image.jpg'); /* Image de fond */
+
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh; /* Hauteur minimale de la page */
+}
+
+/* Conteneur principal */
+.container {
+  width: 80%;
+  max-width: 700px; /* Largeur maximale du conteneur */
+  background: rgba(242, 242, 245, 0.85); /* Couleur de fond avec transparence */
+  box-shadow: 2px 2px 10px 0 rgba(67, 33, 203, 0.2);
+  padding: 20px; /* Espacement intérieur */
+  border-radius: 20px;
+}
+
+/* Message de connexion/inscription */
+.message {
+  
+  transition: 0.5s all ease;
+  z-index: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Bouton */
+.button {
+  width: 100%;
+  height: 30px;
+  border: none;
+  outline: none;
+  color: #a546a8;
+  font-size: 15px;
+  font-weight: 400;
+  background: #5603fcab;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* Formulaires */
+form {
+  width: 100%;
+}
+
+.form-group {
+  margin: 10px 0;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid #413f3f;
+  font-size: 16px;
+  font-weight: 300;
+  color: #4c4c4e;
+  letter-spacing: 0.11em;
+  background: rgba(200, 200, 224, 0.85);
+  box-shadow: 2px 2px 10px 0 rgba(67, 33, 203, 0.2);
+  padding: 5px;
+  border-radius: 20px;
+}
+
+input::placeholder {
+  color: #8663e6;
+  font-size: 12px;
+}
+
+input:focus {
+  outline: 0;
+  border-bottom: 1px solid rgba(12, 90, 168, 0.7);
+  transition: 0.6s all ease;
+}
+
+.form--heading {
+  font-size: 25px;
+  height: 50px;
+  align-items: center;
+  color: #f0eeec(0,16%,96%); /* Couleur du texte */
+  font-family: "source Sans Pro", sans-serif; /* Utilisation de la police Playfair Display */
+}
+.alert-success {
+  
+  color: #12f146;
+}
+
+.alert-error {
+  
+  color: #e90b21;
+}
+
+.alert-warning {
+  
+  color: #07911e;
+}
