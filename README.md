@@ -25,7 +25,7 @@ F&H Recommender/
 ├── requirements.txt # Dépendances Python
 └── README.md # Documentation
 
-## 🚀 Installation Rapide
+##  Installation Rapide
 
 1. **Cloner le dépôt**
 git clone https://github.com/elouasaidi/movie-recommendation-system.git
