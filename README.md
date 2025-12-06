@@ -28,16 +28,15 @@ F&H Recommender/
 ## 🚀 Installation Rapide
 
 1. **Cloner le dépôt**
-```bash
 git clone https://github.com/elouasaidi/movie-recommendation-system.git
 cd movie-recommendation-system
 
----
-**Installer les dépendances**
+
+2. **Installer les dépendances**
 pip install flask pandas scikit-learn numpy
 
-**Lancer l'application**
+3. **Lancer l'application**
 python app.py
 
-**Ouvrir dans le navigateur**
+4. **Ouvrir dans le navigateur**
 http://localhost:5000
