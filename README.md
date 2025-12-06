@@ -1,7 +1,7 @@
 # F&H Movie Recommender System
 
 Système de Recommandation de Films - Projet de Fin d'Études  
-![Uploading image.png…]()
+<img width="1599" height="732" alt="image" src="https://github.com/user-attachments/assets/887b123a-5e74-4e92-9551-afee9da36c88" />
 
 
 ## Aperçu du projet
